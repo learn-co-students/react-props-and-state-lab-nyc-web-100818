@@ -13,7 +13,6 @@ class Pet extends React.Component {
   }
 
   adoptedLogic = () => {
-    // console.log(this.props.pet.isAdopted);
     if (this.props.pet.isAdopted === true) {
       return <button className="ui disabled button">Already adopted</button>
     } else {
