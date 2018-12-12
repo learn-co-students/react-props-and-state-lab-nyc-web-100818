@@ -31,14 +31,17 @@ class App extends React.Component {
   }
 
   onAdoptPet = (id) => {
-    const petArr = this.state.pets.slice()
     const foundPet = this.state.pets.find(pet => pet.id === id)
-    foundPet.isAdopted = !foundPet.isAdopted
-    let index = this.state.pets.indexOf(foundPet)
-    petArr.splice(index, 1, foundPet)
-    this.setState({
-      pets: petArr
-    })
+    foundPet.isAdopted = true
+    this.setState(() => Object.assign({}, this.state, {pets: Object.assign({}, this.state.pets, this.state.pets.indexOf(foundPet): foundPet)}))
+
+    // const petArr = this.state.pets.slice()
+    // foundPet.isAdopted = !foundPet.isAdopted
+    // let index = this.state.pets.indexOf(foundPet)
+    // petArr.splice(index, 1, foundPet)
+    // this.setState({
+    //   pets: petArr
+    // })
   }
 
 
