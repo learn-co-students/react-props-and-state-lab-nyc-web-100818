@@ -41,11 +41,12 @@ class Pet extends React.Component {
       <div className="card">
         <div className="content">
           <a className="header">
-            {this.genderLogic()}
-            {this.props.pet.name}
+            Gender: {this.genderLogic()}
+            <br/>
+            Name: {this.props.pet.name}
           </a>
           <div className="meta">
-            <span className="date">{this.props.pet.type}</span>
+            <span className="date">Type: {this.props.pet.type}</span>
           </div>
           <div className="description">
             <p>Age: {this.props.pet.age}</p>
