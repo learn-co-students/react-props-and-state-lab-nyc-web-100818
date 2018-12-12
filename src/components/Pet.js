@@ -4,7 +4,15 @@ class Pet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isAdopted: this.props.isAdopted
+      isAdopted: this.props.pet.isAdopted
+    }
+  }
+
+  componentDidUpdate = (prevProps) => {
+    if (prevProps !== this.props) {
+      this.setState({
+        isAdopted: this.props.pet.isAdopted
+      })
     }
   }
 
@@ -13,7 +21,7 @@ class Pet extends React.Component {
   }
 
   adoptedLogic = () => {
-    if (this.props.pet.isAdopted === true) {
+    if (this.state.isAdopted === true) {
       return <button className="ui disabled button">Already adopted</button>
     } else {
       return <button className="ui primary button" onClick={this.handleClick}>Adopt pet</button>
