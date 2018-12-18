@@ -44,7 +44,7 @@ There are several components that need your attention. All of these components c
 
 * Should receive an `onFindPetsClick` callback prop. This callback prop gets called when the users clicks the 'Find pets' button.
 
-### `PetBrowser`
+### `PetBrowser`  WILL MAP
 
 1.  Should receive a `pets` prop. This is an array of pets that the component uses to render `<Pet />` components. App should determine which pets to pass down as props. App should be responsible for filtering this list based on the types of pets the user wants to see.
 
