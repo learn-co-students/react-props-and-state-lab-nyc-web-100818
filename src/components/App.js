@@ -1,19 +1,71 @@
-import React from 'react'
+import React from "react";
 
-import Filters from './Filters'
-import PetBrowser from './PetBrowser'
+import Filters from "./Filters";
+import PetBrowser from "./PetBrowser";
+
+// App Component:
+// 1.Filters
+// 2.PetBrowser
 
 class App extends React.Component {
   constructor() {
-    super()
+    super();
 
     this.state = {
       pets: [],
       filters: {
-        type: 'all'
+        type: "all"
       }
-    }
+    };
   }
+
+  // handleFetchPets = () => {
+  //   console.log(`Fetching pets`);
+
+  //   if (this.state.filters.type === "all") {
+  //     const url = `/api/pets`;
+  //     fetch(url)
+  //       .then(response => response.json())
+  //       .then(pets => this.setState({ pets }));
+  //   } else {
+  //     const url = `/api/pets?type=${this.state.filters.type}`;
+  //     fetch(url)
+  //       .then(response => response.json())
+  //       .then(pets => this.setState({ pets }));
+  //   }
+  // };
+
+  handleFetchPets = () => {
+    const url =
+      this.state.filters.type === "all"
+        ? `/api/pets`
+        : `/api/pets?type=${this.state.filters.type}`;
+    fetch(url)
+      .then(r => r.json())
+      .then(pets => {
+        console.table(pets);
+        this.setState({ pets });
+      });
+  };
+
+  handleChangeFilterType = value => {
+    this.setState({
+      filters: {
+        ...this.state.filters,
+        type: value
+      }
+    });
+  };
+
+  // isAdopted is a single attribute in a nested array within the state object
+  // Use spread operator to manipulate this attribute
+  handleAdoptPet = id => {
+    console.log("Adoption in process");
+    const pets = this.state.pets.map(pet =>
+      pet.id === id ? { ...pet, isAdopted: true } : pet
+    );
+    this.setState({ pets });
+  };
 
   render() {
     return (
@@ -24,16 +76,22 @@ class App extends React.Component {
         <div className="ui container">
           <div className="ui grid">
             <div className="four wide column">
-              <Filters />
+              <Filters
+                onChangeType={this.handleChangeFilterType}
+                onFindPetsClick={this.handleFetchPets}
+              />
             </div>
             <div className="twelve wide column">
-              <PetBrowser />
+              <PetBrowser
+                pets={this.state.pets}
+                onAdoptPet={this.handleAdoptPet}
+              />
             </div>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default App
+export default App;
